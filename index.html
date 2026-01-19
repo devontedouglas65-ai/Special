@@ -11,6 +11,7 @@
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     overflow-y: auto;
     padding: 2rem 0;
+    position: relative;
   }
   .card {
     background: white;
@@ -21,6 +22,7 @@
     max-width: 700px;
     width: 90%;
     margin: 2rem auto;
+    position: relative;
   }
   h1 { color: #e63946; margin-bottom: 1rem; }
   p { font-size: 1.1rem; margin-bottom: 1rem; }
@@ -44,6 +46,7 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
+    position: relative;
   }
   button {
     padding: 0.8rem 1.5rem;
@@ -52,6 +55,8 @@
     border-radius: 30px;
     cursor: pointer;
     transition: transform 0.2s, background 0.2s;
+    position: relative;
+    z-index: 1;
   }
   #yesBtn { background: #e63946; color: white; }
   #yesBtn:hover { transform: scale(1.1); background: #d62839; }
@@ -82,10 +87,20 @@
     width: 100%;
     height: 100%;
   }
+  /* Turtle styling */
+  #turtle {
+    position: absolute;
+    width: 60px;
+    bottom: 20px;
+    left: 0;
+    z-index: 2;
+    transition: all 2s ease-in-out;
+  }
   @media (max-width:480px){
     .photos img { flex: 1 1 100%; }
     button { padding: 1rem 2rem; font-size: 1.2rem; }
     h1, h2, p { word-wrap: break-word; }
+    #turtle { width: 40px; }
   }
 </style>
 </head>
@@ -111,18 +126,14 @@
       I love you princess, can’t wait to spend this special day with you 💖
     </div>
 
-    <!-- Music button -->
     <button id="musicBtn">Set the mood ;) xx</button>
 
-    <!-- YouTube Video -->
     <div id="videoWrapper" class="video-container">
-      <iframe id="ytPlayer"
-        src=""
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen>
-      </iframe>
+      <iframe id="ytPlayer" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
+
+    <!-- Turtle image -->
+    <img id="turtle" src="turtle.png" alt="Cute turtle nudging" />
   </div>
 
 <script>
@@ -132,6 +143,7 @@
   const musicBtn = document.getElementById('musicBtn');
   const videoWrapper = document.getElementById('videoWrapper');
   const ytPlayer = document.getElementById('ytPlayer');
+  const turtle = document.getElementById('turtle');
 
   function launchConfetti(){
     for(let i=0;i<80;i++){
@@ -150,10 +162,10 @@
     yesBtn.style.display='none';
     noBtn.style.display='none';
     launchConfetti();
+    turtle.style.display = 'none';
   });
 
   musicBtn.addEventListener('click', ()=>{
-    // Use the official YouTube video ID from your link
     ytPlayer.src = "https://www.youtube.com/embed/pBZ6z0x5p0E?autoplay=1";
     videoWrapper.style.display = 'block';
   });
@@ -166,6 +178,19 @@
 
   noBtn.addEventListener('mouseover',moveNoButton);
   noBtn.addEventListener('touchstart',moveNoButton);
+
+  // Turtle animation
+  function nudgeTurtle(){
+    if(yesBtn.style.display !== 'none'){ // Only nudge if Yes button is visible
+      const yesRect = yesBtn.getBoundingClientRect();
+      const cardRect = document.querySelector('.card').getBoundingClientRect();
+      const x = yesRect.left - cardRect.left + (yesRect.width/2) - 30; // Center turtle
+      const y = yesRect.top - cardRect.top - 60; // Above button
+      turtle.style.left = x + 'px';
+      turtle.style.bottom = (cardRect.height - y) + 'px';
+    }
+  }
+  setInterval(nudgeTurtle, 3000); // Move every 3 seconds
 </script>
 </body>
 </html>
