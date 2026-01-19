@@ -35,7 +35,22 @@
 
     p {
       font-size: 1.1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin: 1rem 0 1rem;
+    }
+
+    .photos img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
     }
 
     .buttons {
@@ -96,19 +111,34 @@
         opacity: 0;
       }
     }
+
+    /* MOBILE RESPONSIVENESS */
+    @media (max-width: 480px) {
+      .photos {
+        grid-template-columns: 1fr; /* stack vertically on small screens */
+      }
+      button {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+      }
+      h1, h2, p {
+        word-wrap: break-word;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Hey K-Lajade 💖</h1>
-    <p>I’ve been meaning to ask you something really special...</p>
-    <h2>Will you be my Valentine? 🌹</h2>
+    <p>I've been meaning to ask you something really special...</p>
 
     <div class="photos">
       <img src="photo1.jpg" alt="Us together" />
       <img src="photo2.jpg" alt="A favorite memory" />
       <img src="photo3.jpg" alt="You ❤️" />
     </div>
+
+    <h2>Will you be my Valentine? 🌹</h2>
 
     <div class="buttons">
       <button id="yesBtn">Yes 💕</button>
@@ -130,9 +160,9 @@
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
         confetti.style.animationDelay = Math.random() * 2 + 's';
         document.body.appendChild(confetti);
-
         setTimeout(() => confetti.remove(), 3000);
       }
     }
@@ -144,11 +174,16 @@
       launchConfetti();
     });
 
-    noBtn.addEventListener('mouseover', () => {
+    function moveNoButton() {
       const x = Math.random() * 200 - 100;
       const y = Math.random() * 200 - 100;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+    }
+
+    // Desktop mouseover
+    noBtn.addEventListener('mouseover', moveNoButton);
+    // Mobile touch
+    noBtn.addEventListener('touchstart', moveNoButton);
   </script>
 </body>
 </html>
