@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Will You Be My Valentine?</title>
   <style>
+    /* BODY STYLES */
     body {
       margin: 0;
       min-height: 100vh;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow-y: auto;
+      overflow-y: auto;   /* enable vertical scrolling */
       padding: 2rem 0;
-      display: block; /* allow natural vertical scrolling */
+      display: block;     /* natural block layout */
     }
 
+    /* CARD STYLES */
     .card {
       background: white;
       padding: 2.5rem;
@@ -23,7 +25,7 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       max-width: 700px;
       width: 90%;
-      margin: 0 auto; /* center horizontally */
+      margin: 0 auto;   /* center horizontally */
       position: relative;
       z-index: 2;
     }
@@ -38,10 +40,11 @@
       margin-bottom: 1rem;
     }
 
+    /* PHOTOS STYLES */
     .photos {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      justify-content: space-between;
       gap: 0.5rem;
       margin: 1rem 0 1rem;
     }
@@ -49,12 +52,13 @@
     .photos img {
       flex: 1 1 calc(33% - 0.5rem);
       max-width: 100%;
-      height: auto;
+      height: auto;          /* prevent zoomed-in effect */
       object-fit: cover;
       border-radius: 12px;
       box-shadow: 0 6px 14px rgba(0,0,0,0.15);
     }
 
+    /* BUTTON STYLES */
     .buttons {
       display: flex;
       justify-content: center;
@@ -87,6 +91,7 @@
       position: relative;
     }
 
+    /* HIDDEN MESSAGE */
     .hidden {
       display: none;
     }
@@ -97,6 +102,7 @@
       margin-top: 1.5rem;
     }
 
+    /* CONFETTI */
     .confetti {
       position: fixed;
       top: -10px;
@@ -117,7 +123,7 @@
     /* MOBILE RESPONSIVENESS */
     @media (max-width: 480px) {
       .photos img {
-        flex: 1 1 100%; /* stack vertically on small screens */
+        flex: 1 1 100%; /* stack vertically on mobile */
       }
       button {
         padding: 1rem 2rem;
@@ -157,6 +163,7 @@
     const noBtn = document.getElementById('noBtn');
     const message = document.getElementById('message');
 
+    // CONFETTI FUNCTION
     function launchConfetti() {
       for (let i = 0; i < 80; i++) {
         const confetti = document.createElement('div');
@@ -169,6 +176,7 @@
       }
     }
 
+    // YES BUTTON CLICK
     yesBtn.addEventListener('click', () => {
       message.classList.remove('hidden');
       yesBtn.style.display = 'none';
@@ -176,16 +184,16 @@
       launchConfetti();
     });
 
+    // NO BUTTON DODGE FUNCTION
     function moveNoButton() {
       const x = Math.random() * 200 - 100;
       const y = Math.random() * 200 - 100;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
-    // Desktop mouseover
-    noBtn.addEventListener('mouseover', moveNoButton);
-    // Mobile touch
-    noBtn.addEventListener('touchstart', moveNoButton);
+    // DODGE EVENTS
+    noBtn.addEventListener('mouseover', moveNoButton);  // desktop
+    noBtn.addEventListener('touchstart', moveNoButton); // mobile
   </script>
 </body>
 </html>
