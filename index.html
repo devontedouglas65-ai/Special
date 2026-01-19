@@ -10,17 +10,17 @@ body{
   margin:0;
   font-family:'Segoe UI', Tahoma, sans-serif;
   background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-  min-height:100vh;
   overflow-x:hidden;
 }
 
+/* PAGES */
 .page{
   display:none;
   min-height:100vh;
-  padding:2rem 0;
 }
 .page.active{display:block}
 
+/* CARD (PAGE 1) */
 .card{
   background:white;
   padding:2.5rem;
@@ -48,24 +48,6 @@ p{font-size:1.1rem}
   border-radius:12px;
   width:100%;
   object-fit:cover;
-}
-
-/* SLIDESHOW – NO ZOOM */
-.slideshow{
-  position:relative;
-  max-width:520px;
-  margin:1.5rem auto;
-}
-
-.slide{
-  display:none;
-  width:100%;
-  height:auto;          /* NO FORCED HEIGHT */
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,.2);
-}
-.slide.active{
-  display:block;
 }
 
 /* BUTTONS */
@@ -138,6 +120,26 @@ button{
   to{transform:translateY(100vh) rotate(360deg);}
 }
 
+/* FULLSCREEN SLIDESHOW */
+#slideshowPage{
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.slide{
+  display:none;
+  max-width:100vw;
+  max-height:100vh;
+  width:auto;
+  height:auto;
+}
+.slide.active{
+  display:block;
+}
+
+/* MOBILE */
 @media(max-width:480px){
   .photos img{flex:1 1 100%}
   #turtle{width:45px}
@@ -176,36 +178,18 @@ button{
   </div>
 </div>
 
-<!-- PAGE 2 -->
-<div class="page" id="page2">
-  <div class="card">
-    <h1>She said YES 💖🥹</h1>
-
-    <p>
-      I love you princess,  
-      can’t wait to spend this special day with you 💕
-    </p>
-
-    <!-- SLIDESHOW -->
-    <div class="slideshow">
-      <img class="slide active" src="photo1.jpg">
-      <img class="slide" src="photo2.jpg">
-      <img class="slide" src="photo3.jpg">
-    </div>
-
-    <p>
-      Every memory with you means the world to me 💫
-    </p>
-
-    <h2>Happy Valentine’s Day 🌹</h2>
-  </div>
+<!-- PAGE 2 – FULLSCREEN SLIDESHOW -->
+<div class="page" id="slideshowPage">
+  <img class="slide active" src="photo1.jpg">
+  <img class="slide" src="photo2.jpg">
+  <img class="slide" src="photo3.jpg">
 </div>
 
 <script>
 const yesBtn=document.getElementById("yesBtn");
 const noBtn=document.getElementById("noBtn");
 const page1=document.getElementById("page1");
-const page2=document.getElementById("page2");
+const slideshowPage=document.getElementById("slideshowPage");
 const turtle=document.getElementById("turtle");
 const musicBtn=document.getElementById("musicBtn");
 const player=document.getElementById("player");
@@ -233,12 +217,12 @@ function confettiBlast(){
   }
 }
 
-/* YES → PAGE 2 */
+/* YES → FULLSCREEN SLIDESHOW */
 yesBtn.onclick=()=>{
   confettiBlast();
   setTimeout(()=>{
     page1.classList.remove("active");
-    page2.classList.add("active");
+    slideshowPage.classList.add("active");
     startSlideshow();
   },800);
 };
@@ -256,7 +240,7 @@ setInterval(()=>{
   turtle.style.bottom="40px";
 },3000);
 
-/* SLIDESHOW */
+/* SLIDESHOW LOGIC */
 let currentSlide=0;
 function startSlideshow(){
   const slides=document.querySelectorAll(".slide");
@@ -264,7 +248,7 @@ function startSlideshow(){
     slides[currentSlide].classList.remove("active");
     currentSlide=(currentSlide+1)%slides.length;
     slides[currentSlide].classList.add("active");
-  },3000);
+  },3500);
 }
 </script>
 
