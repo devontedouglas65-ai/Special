@@ -8,13 +8,11 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-y: auto;
       padding: 2rem 0;
+      display: block; /* allow natural vertical scrolling */
     }
 
     .card {
@@ -25,6 +23,7 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       max-width: 700px;
       width: 90%;
+      margin: 0 auto; /* center horizontally */
       position: relative;
       z-index: 2;
     }
