@@ -15,12 +15,17 @@ body{
 
 /* PAGES */
 .page{
-  display:none;
+  display:none;          
   min-height:100vh;
 }
-.page.active{display:block}
+.page.active{
+  display:flex;          
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
 
-/* CARD (PAGE 1) */
+/* PAGE 1 CARD */
 .card{
   background:white;
   padding:2.5rem;
@@ -33,6 +38,7 @@ body{
   position:relative;
 }
 
+/* PAGE 1 TEXT */
 h1{color:#e63946}
 p{font-size:1.1rem}
 
@@ -123,9 +129,8 @@ button{
 /* FULLSCREEN SLIDESHOW */
 #slideshowPage{
   background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  width:100vw;
+  height:100vh;
 }
 
 .slide{
@@ -178,11 +183,11 @@ button{
   </div>
 </div>
 
-<!-- PAGE 2 – FULLSCREEN SLIDESHOW -->
+<!-- PAGE 2 – FULLSCREEN SLIDESHOW (HIDDEN UNTIL YES) -->
 <div class="page" id="slideshowPage">
-  <img class="slide active" src="photo1.jpg">
-  <img class="slide" src="photo2.jpg">
-  <img class="slide" src="photo3.jpg">
+  <img class="slide active" src="memory1.jpg">
+  <img class="slide" src="memory2.jpg">
+  <img class="slide" src="memory3.jpg">
 </div>
 
 <script>
@@ -217,7 +222,7 @@ function confettiBlast(){
   }
 }
 
-/* YES → FULLSCREEN SLIDESHOW */
+/* YES → SHOW SLIDESHOW */
 yesBtn.onclick=()=>{
   confettiBlast();
   setTimeout(()=>{
@@ -240,7 +245,7 @@ setInterval(()=>{
   turtle.style.bottom="40px";
 },3000);
 
-/* SLIDESHOW LOGIC */
+/* SLIDESHOW */
 let currentSlide=0;
 function startSlideshow(){
   const slides=document.querySelectorAll(".slide");
