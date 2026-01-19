@@ -94,7 +94,7 @@
     bottom: 20px;
     left: 0;
     z-index: 2;
-    transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out; /* smooth movement */
   }
   @media (max-width:480px){
     .photos img { flex: 1 1 100%; }
@@ -132,8 +132,8 @@
       <iframe id="ytPlayer" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
-    <!-- Turtle image -->
-    <img id="turtle" src="turtle.png" alt="Cute turtle nudging" />
+    <!-- Turtle image assigned from a URL -->
+    <img id="turtle" src="https://i.imgur.com/j9D7g9N.png" alt="Cute turtle nudging" />
   </div>
 
 <script>
@@ -144,6 +144,7 @@
   const videoWrapper = document.getElementById('videoWrapper');
   const ytPlayer = document.getElementById('ytPlayer');
   const turtle = document.getElementById('turtle');
+  const card = document.querySelector('.card');
 
   function launchConfetti(){
     for(let i=0;i<80;i++){
@@ -183,14 +184,16 @@
   function nudgeTurtle(){
     if(yesBtn.style.display !== 'none'){ // Only nudge if Yes button is visible
       const yesRect = yesBtn.getBoundingClientRect();
-      const cardRect = document.querySelector('.card').getBoundingClientRect();
-      const x = yesRect.left - cardRect.left + (yesRect.width/2) - 30; // Center turtle
-      const y = yesRect.top - cardRect.top - 60; // Above button
-      turtle.style.left = x + 'px';
-      turtle.style.bottom = (cardRect.height - y) + 'px';
+      const cardRect = card.getBoundingClientRect();
+      const turtleWidth = turtle.offsetWidth;
+      // center turtle above Yes button
+      const targetX = yesRect.left - cardRect.left + (yesRect.width/2) - (turtleWidth/2);
+      const targetY = cardRect.height - (yesRect.top - cardRect.top) + 40; // bottom offset
+      turtle.style.left = targetX + 'px';
+      turtle.style.bottom = targetY + 'px';
     }
   }
-  setInterval(nudgeTurtle, 3000); // Move every 3 seconds
+  setInterval(nudgeTurtle, 2000); // update position every 2 seconds
 </script>
 </body>
 </html>
