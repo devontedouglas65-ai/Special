@@ -19,7 +19,7 @@ body{
   min-height:100vh;
 }
 .page.active{
-  display:flex;          
+  display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
@@ -128,9 +128,16 @@ button{
 
 /* FULLSCREEN SLIDESHOW */
 #slideshowPage{
-  background:black;
+  display:none; /* hidden until yes */
+  position:fixed;
+  top:0;
+  left:0;
   width:100vw;
   height:100vh;
+  justify-content:center;
+  align-items:center;
+  background:black;
+  z-index:999;
 }
 
 .slide{
@@ -227,7 +234,7 @@ yesBtn.onclick=()=>{
   confettiBlast();
   setTimeout(()=>{
     page1.classList.remove("active");
-    slideshowPage.classList.add("active");
+    slideshowPage.style.display="flex"; // show fullscreen
     startSlideshow();
   },800);
 };
