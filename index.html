@@ -53,12 +53,16 @@
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.3s;
     position: relative;
     z-index: 1;
   }
   #yesBtn { background: #e63946; color: white; }
-  #yesBtn:hover { transform: scale(1.1); background: #d62839; }
+  #yesBtn:hover, #yesBtn:active {
+    transform: scale(1.1);
+    background: #d62839;
+    box-shadow: 0 0 20px #e63946, 0 0 40px #e63946;
+  }
   #noBtn { background: #adb5bd; color: #333; position: relative; }
   #musicBtn {
     background: #ff7f50;
@@ -94,6 +98,22 @@
     left: 10px;
     z-index: 2;
     transition: all 1s ease-in-out;
+  }
+  /* Confetti styles */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    opacity: 0.9;
+    top: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    animation: fall 3s linear forwards;
+  }
+  @keyframes fall {
+    100% { transform: translateY(100vh) rotate(360deg); }
   }
   @media (max-width:480px){
     .photos img { flex: 1 1 100%; }
@@ -131,7 +151,7 @@
     <iframe id="ytPlayer" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <!-- Turtle using your local JPEG -->
+  <!-- Turtle -->
   <img id="turtle" src="turtle.jpg" alt="Cute turtle nudging" />
 </div>
 
@@ -145,15 +165,17 @@ const ytPlayer = document.getElementById('ytPlayer');
 const turtle = document.getElementById('turtle');
 const card = document.querySelector('.card');
 
+// Confetti function (lots of confetti)
 function launchConfetti(){
-  for(let i=0;i<80;i++){
+  for(let i=0;i<150;i++){ // a lot more
     const confetti = document.createElement('div');
     confetti.classList.add('confetti');
     confetti.style.left=Math.random()*100+'vw';
     confetti.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-    confetti.style.animationDelay=Math.random()*2+'s';
+    confetti.style.width = confetti.style.height = (5 + Math.random()*10)+'px';
+    confetti.style.animationDuration = (2 + Math.random()*2)+'s';
     document.body.appendChild(confetti);
-    setTimeout(()=>confetti.remove(),3000);
+    setTimeout(()=>confetti.remove(), 4000);
   }
 }
 
