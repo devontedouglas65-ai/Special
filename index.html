@@ -19,9 +19,7 @@ body{
   min-height:100vh;
   padding:2rem 0;
 }
-.page.active{
-  display:block;
-}
+.page.active{display:block}
 
 .card{
   background:white;
@@ -52,29 +50,22 @@ p{font-size:1.1rem}
   object-fit:cover;
 }
 
-/* SLIDESHOW */
+/* SLIDESHOW – NO ZOOM */
 .slideshow{
   position:relative;
-  width:100%;
   max-width:520px;
-  height:320px;
   margin:1.5rem auto;
-  overflow:hidden;
-  border-radius:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,.2);
-  background:#f8f8f8;
 }
 
 .slide{
-  position:absolute;
+  display:none;
   width:100%;
-  height:100%;
-  object-fit:contain;   /* FIXED ZOOM */
-  opacity:0;
-  transition:opacity 1s ease;
+  height:auto;          /* NO FORCED HEIGHT */
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 .slide.active{
-  opacity:1;
+  display:block;
 }
 
 /* BUTTONS */
@@ -149,7 +140,6 @@ button{
 
 @media(max-width:480px){
   .photos img{flex:1 1 100%}
-  .slideshow{height:220px}
   #turtle{width:45px}
 }
 </style>
