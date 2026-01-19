@@ -1,139 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Will You Be My Valentine?</title>
-  <style>
-    /* BODY STYLES */
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow-y: auto;   /* enable vertical scrolling */
-      padding: 2rem 0;
-      display: block;     /* natural block layout */
-    }
-
-    /* CARD STYLES */
-    .card {
-      background: white;
-      padding: 2.5rem;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      max-width: 700px;
-      width: 90%;
-      margin: 0 auto;   /* center horizontally */
-      position: relative;
-      z-index: 2;
-    }
-
-    h1 {
-      color: #e63946;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    /* PHOTOS STYLES */
-    .photos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.5rem;
-      margin: 1rem 0 1rem;
-    }
-
-    .photos img {
-      flex: 1 1 calc(33% - 0.5rem);
-      max-width: 100%;
-      height: auto;          /* prevent zoomed-in effect */
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-    }
-
-    /* BUTTON STYLES */
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    button {
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    #yesBtn {
-      background: #e63946;
-      color: white;
-    }
-
-    #yesBtn:hover {
-      transform: scale(1.1);
-      background: #d62839;
-    }
-
-    #noBtn {
-      background: #adb5bd;
-      color: #333;
-      position: relative;
-    }
-
-    /* HIDDEN MESSAGE */
-    .hidden {
-      display: none;
-    }
-
-    .message {
-      font-size: 1.4rem;
-      color: #e63946;
-      margin-top: 1.5rem;
-    }
-
-    /* CONFETTI */
-    .confetti {
-      position: fixed;
-      top: -10px;
-      width: 10px;
-      height: 10px;
-      background-color: hsl(Math.random() * 360, 100%, 50%);
-      animation: fall 3s linear forwards;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* MOBILE RESPONSIVENESS */
-    @media (max-width: 480px) {
-      .photos img {
-        flex: 1 1 100%; /* stack vertically on mobile */
-      }
-      button {
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
-      }
-      h1, h2, p {
-        word-wrap: break-word;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine?</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    overflow-y: auto;
+    padding: 2rem 0;
+    display: block;
+  }
+  .card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    max-width: 700px;
+    width: 90%;
+    margin: 2rem auto;
+  }
+  h1 { color: #e63946; margin-bottom: 1rem; }
+  p { font-size: 1.1rem; margin-bottom: 1rem; }
+  .photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    justify-content: space-between;
+  }
+  .photos img {
+    flex: 1 1 calc(33% - 0.5rem);
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  #yesBtn { background: #e63946; color: white; }
+  #yesBtn:hover { transform: scale(1.1); background: #d62839; }
+  #noBtn { background: #adb5bd; color: #333; position: relative; }
+  #musicBtn {
+    background: #ff7f50;
+    color: white;
+    margin-top: 1rem;
+    display: none;
+  }
+  .hidden { display: none; }
+  .message { font-size: 1.4rem; color: #e63946; margin-top: 1.5rem; }
+  .video-container {
+    margin-top: 1rem;
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    display: none;
+  }
+  .video-container iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width:480px){
+    .photos img { flex: 1 1 100%; }
+    button { padding: 1rem 2rem; font-size: 1.2rem; }
+    h1, h2, p { word-wrap: break-word; }
+  }
+</style>
 </head>
 <body>
   <div class="card">
@@ -141,9 +90,9 @@
     <p>I've been meaning to ask you something really special...</p>
 
     <div class="photos">
-      <img src="photo1.jpg" alt="Us together" />
-      <img src="photo2.jpg" alt="A favorite memory" />
-      <img src="photo3.jpg" alt="You ❤️" />
+      <img src="photo1.jpg" alt="Us together">
+      <img src="photo2.jpg" alt="A favorite memory">
+      <img src="photo3.jpg" alt="You ❤️">
     </div>
 
     <h2>Will you be my Valentine? 🌹</h2>
@@ -156,44 +105,65 @@
     <div id="message" class="message hidden">
       I love you princess, can’t wait to spend this special day with you 💖
     </div>
+
+    <!-- Music button -->
+    <button id="musicBtn">Set the mood ;) xx</button>
+
+    <!-- YouTube Video -->
+    <div id="videoWrapper" class="video-container">
+      <iframe id="ytPlayer"
+        src=""
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    </div>
   </div>
 
-  <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const message = document.getElementById('message');
+<script>
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const message = document.getElementById('message');
+  const musicBtn = document.getElementById('musicBtn');
+  const videoWrapper = document.getElementById('videoWrapper');
+  const ytPlayer = document.getElementById('ytPlayer');
 
-    // CONFETTI FUNCTION
-    function launchConfetti() {
-      for (let i = 0; i < 80; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        confetti.style.animationDelay = Math.random() * 2 + 's';
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 3000);
-      }
+  function launchConfetti(){
+    for(let i=0;i<80;i++){
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left=Math.random()*100+'vw';
+      confetti.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+      confetti.style.animationDelay=Math.random()*2+'s';
+      document.body.appendChild(confetti);
+      setTimeout(()=>confetti.remove(),3000);
     }
+  }
 
-    // YES BUTTON CLICK
-    yesBtn.addEventListener('click', () => {
-      message.classList.remove('hidden');
-      yesBtn.style.display = 'none';
-      noBtn.style.display = 'none';
-      launchConfetti();
-    });
+  yesBtn.addEventListener('click', ()=>{
+    message.classList.remove('hidden');
+    yesBtn.style.display='none';
+    noBtn.style.display='none';
+    launchConfetti();
+    // show music button
+    musicBtn.style.display = 'inline-block';
+  });
 
-    // NO BUTTON DODGE FUNCTION
-    function moveNoButton() {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
+  musicBtn.addEventListener('click', ()=>{
+    // Set YouTube video URL for Still Love (replace VIDEO_ID with real ID)
+    ytPlayer.src = "https://www.youtube.com/embed/8z0nmH5Zt_M?autoplay=1";
+    videoWrapper.style.display = 'block';
+    musicBtn.style.display = 'none';
+  });
 
-    // DODGE EVENTS
-    noBtn.addEventListener('mouseover', moveNoButton);  // desktop
-    noBtn.addEventListener('touchstart', moveNoButton); // mobile
-  </script>
+  function moveNoButton(){
+    const x=Math.random()*200-100;
+    const y=Math.random()*200-100;
+    noBtn.style.transform=`translate(${x}px,${y}px)`;
+  }
+
+  noBtn.addEventListener('mouseover',moveNoButton);
+  noBtn.addEventListener('touchstart',moveNoButton);
+</script>
 </body>
 </html>
