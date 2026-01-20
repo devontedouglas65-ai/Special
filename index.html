@@ -14,18 +14,22 @@ body{
   transition: background 1s;
 }
 
+/* HEADER always visible */
+header{
+  text-align:center;
+  padding:1rem;
+  color:#e63946;
+  font-size:2rem;
+  font-weight:bold;
+}
+
 /* PAGES */
 .page{
-  display:none;          
-  min-height:100vh;
-  opacity:0;
-  transition: opacity 1s;
-}
-.page.active{
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
+  min-height:calc(100vh - 70px); /* leave space for header */
   opacity:1;
 }
 
@@ -42,7 +46,6 @@ body{
   position:relative;
 }
 
-h1{color:#e63946}
 p{font-size:1.1rem}
 
 /* FIRST PAGE PHOTOS */
@@ -99,6 +102,7 @@ button{
   margin-top:1rem;
   position:relative;
   padding-bottom:56.25%;
+  width:100%;
 }
 .video-container iframe{
   position:absolute;
@@ -129,7 +133,7 @@ button{
   to{transform:translateY(100vh) rotate(360deg);}
 }
 
-/* FULLSCREEN SLIDESHOW */
+/* FULLSCREEN SLIDESHOW OVERLAY */
 #slideshowPage{
   display:none; /* hidden until yes */
   position:fixed;
@@ -156,32 +160,34 @@ button{
   display:block;
 }
 
-/* FINAL MESSAGE */
-#finalMsg{
+/* FINAL MESSAGE at bottom */
+#specialMsg{
   display:none;
   color:#e63946;
-  font-size:3rem;
-  font-weight:bold;
+  font-size:1.5rem;
   text-align:center;
-  margin-top:2rem;
+  padding:1rem;
+  margin-top:1rem;
+  font-weight:bold;
 }
 
 /* MOBILE */
 @media(max-width:480px){
   .photos img{flex:1 1 100%}
   #turtle{width:45px}
-  #finalMsg{font-size:2rem;}
+  #specialMsg{font-size:1.2rem;}
 }
 </style>
 </head>
 
 <body>
 
+<header>Hey K-Lajade 💖</header>
+
 <!-- PAGE 1 -->
-<div class="page active" id="page1">
+<div class="page" id="page1">
   <div class="card">
-    <h1>Hey K-Lajade 💖</h1>
-    <p id="homeMsg">I love you princess, can't wait to spend this special day with you ❤️</p>
+    <p id="homeMsg">I have something really special to ask you…</p>
 
     <div class="photos">
       <img src="photo1.jpg">
@@ -216,9 +222,10 @@ button{
   <img class="slide" src="memory5.jpg">
   <img class="slide" src="memory6.jpg">
   <img class="slide" src="memory7.jpg">
-
-  <div id="finalMsg">I love you ❤️</div>
 </div>
+
+<!-- SPECIAL MESSAGE at bottom -->
+<div id="specialMsg">I love you princess, can't wait to spend this special day with you ❤️</div>
 
 <script>
 const yesBtn=document.getElementById("yesBtn");
@@ -229,7 +236,7 @@ const turtle=document.getElementById("turtle");
 const musicBtn=document.getElementById("musicBtn");
 const player=document.getElementById("player");
 const videoWrap=document.getElementById("videoWrap");
-const finalMsg=document.getElementById("finalMsg");
+const specialMsg=document.getElementById("specialMsg");
 
 /* NO BUTTON DODGE */
 function dodge(){
@@ -257,7 +264,6 @@ function confettiBlast(){
 yesBtn.onclick=()=>{
   confettiBlast();
   setTimeout(()=>{
-    page1.classList.remove("active");
     slideshowPage.style.display="flex";
     startSlideshow();
   },800);
@@ -281,18 +287,15 @@ let currentSlide=0;
 function startSlideshow(){
   const slides=document.querySelectorAll(".slide");
   const total=slides.length;
+  slides[currentSlide].classList.add("active");
   const interval=setInterval(()=>{
     slides[currentSlide].classList.remove("active");
     currentSlide++;
     if(currentSlide >= total){
       clearInterval(interval);
-      finalMsg.style.display="block"; // show "I love you"
-      setTimeout(()=>{
-        // Fade back to home page
-        slideshowPage.style.display="none";
-        finalMsg.style.display="none";
-        page1.classList.add("active");
-      },4000); // 4s on the final message
+      // show special message
+      slideshowPage.style.display="none";
+      specialMsg.style.display="block";
       return;
     }
     slides[currentSlide].classList.add("active");
