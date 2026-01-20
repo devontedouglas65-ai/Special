@@ -4,14 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Valentine 💖</title>
-
 <style>
 body{
   margin:0;
   font-family:'Segoe UI', Tahoma, sans-serif;
   background:linear-gradient(135deg,#ff9a9e,#fad0c4);
   overflow-x:hidden;
-  transition: background 1s;
 }
 
 /* HEADER always visible */
@@ -23,32 +21,16 @@ header{
   font-weight:bold;
 }
 
-/* PAGES */
-.page{
+/* PAGE 1 CONTENT */
+#page1{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
-  min-height:calc(100vh - 70px); /* leave space for header */
-  opacity:1;
-}
-
-/* PAGE 1 CARD */
-.card{
-  background:white;
-  padding:2.5rem;
-  border-radius:20px;
-  max-width:700px;
-  width:90%;
-  margin:2rem auto;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.2);
-  position:relative;
+  margin-top:1rem;
 }
 
-p{font-size:1.1rem}
-
-/* FIRST PAGE PHOTOS */
+/* PHOTOS */
 .photos{
   display:flex;
   flex-wrap:wrap;
@@ -67,7 +49,7 @@ p{font-size:1.1rem}
   display:flex;
   justify-content:center;
   gap:1rem;
-  margin-top:1.5rem;
+  margin-top:1rem;
 }
 button{
   padding:.8rem 1.6rem;
@@ -77,24 +59,10 @@ button{
   cursor:pointer;
   transition:.3s;
 }
-#yesBtn{
-  background:#e63946;
-  color:white;
-}
-#yesBtn:hover,#yesBtn:active{
-  transform:scale(1.1);
-  box-shadow:0 0 25px #e63946;
-}
-#noBtn{
-  background:#adb5bd;
-  color:#333;
-  position:relative;
-}
-#musicBtn{
-  margin-top:1.5rem;
-  background:#ff7f50;
-  color:white;
-}
+#yesBtn{ background:#e63946; color:white; }
+#yesBtn:hover,#yesBtn:active{ transform:scale(1.1); box-shadow:0 0 25px #e63946; }
+#noBtn{ background:#adb5bd; color:#333; position:relative; }
+#musicBtn{ margin-top:1.5rem; background:#ff7f50; color:white; }
 
 /* VIDEO */
 .video-container{
@@ -129,18 +97,14 @@ button{
   animation:fall 3s linear forwards;
   z-index:9999;
 }
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(360deg);}
-}
+@keyframes fall{ to{transform:translateY(100vh) rotate(360deg);} }
 
 /* FULLSCREEN SLIDESHOW OVERLAY */
 #slideshowPage{
-  display:none; /* hidden until yes */
+  display:none;
   position:fixed;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
+  top:0; left:0;
+  width:100vw; height:100vh;
   justify-content:center;
   align-items:center;
   background:black;
@@ -156,11 +120,9 @@ button{
   width:auto;
   height:auto;
 }
-.slide.active{
-  display:block;
-}
+.slide.active{ display:block; }
 
-/* FINAL MESSAGE at bottom */
+/* SPECIAL MESSAGE at bottom */
 #specialMsg{
   display:none;
   color:#e63946;
@@ -179,42 +141,38 @@ button{
 }
 </style>
 </head>
-
 <body>
 
 <header>Hey K-Lajade 💖</header>
 
-<!-- PAGE 1 -->
-<div class="page" id="page1">
-  <div class="card">
-    <p id="homeMsg">I have something really special to ask you…</p>
+<!-- PAGE 1 CONTENT -->
+<div id="page1">
+  <p>I have something really special to ask you…</p>
 
-    <div class="photos">
-      <img src="photo1.jpg">
-      <img src="photo2.jpg">
-      <img src="photo3.jpg">
-    </div>
-
-    <h2>Will you be my Valentine? 🌹</h2>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No 🙃</button>
-    </div>
-
-    <button id="musicBtn">Set the mood ;) xx</button>
-
-    <div class="video-container" id="videoWrap">
-      <iframe id="player" allow="autoplay"></iframe>
-    </div>
-
-    <img id="turtle" src="turtle.jpg">
+  <div class="photos">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
   </div>
+
+  <h2>Will you be my Valentine? 🌹</h2>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 🙃</button>
+  </div>
+
+  <button id="musicBtn">Set the mood ;) xx</button>
+
+  <div class="video-container" id="videoWrap">
+    <iframe id="player" allow="autoplay"></iframe>
+  </div>
+
+  <img id="turtle" src="turtle.jpg">
 </div>
 
-<!-- PAGE 2 – FULLSCREEN SLIDESHOW -->
-<div class="page" id="slideshowPage">
-  <!-- MEMORY PHOTOS -->
+<!-- FULLSCREEN SLIDESHOW -->
+<div id="slideshowPage">
   <img class="slide active" src="memory1.jpg">
   <img class="slide" src="memory2.jpg">
   <img class="slide" src="memory3.jpg">
@@ -224,13 +182,12 @@ button{
   <img class="slide" src="memory7.jpg">
 </div>
 
-<!-- SPECIAL MESSAGE at bottom -->
+<!-- SPECIAL MESSAGE AFTER SLIDESHOW -->
 <div id="specialMsg">I love you princess, can't wait to spend this special day with you ❤️</div>
 
 <script>
 const yesBtn=document.getElementById("yesBtn");
 const noBtn=document.getElementById("noBtn");
-const page1=document.getElementById("page1");
 const slideshowPage=document.getElementById("slideshowPage");
 const turtle=document.getElementById("turtle");
 const musicBtn=document.getElementById("musicBtn");
@@ -260,7 +217,7 @@ function confettiBlast(){
   }
 }
 
-/* YES → SHOW SLIDESHOW */
+/* YES BUTTON → SHOW SLIDESHOW */
 yesBtn.onclick=()=>{
   confettiBlast();
   setTimeout(()=>{
@@ -269,13 +226,13 @@ yesBtn.onclick=()=>{
   },800);
 };
 
-/* MUSIC BUTTON ON PAGE 1 */
+/* MUSIC BUTTON */
 musicBtn.onclick=()=>{
   player.src="https://www.youtube.com/embed/pBZ6z0x5p0E?autoplay=1";
   videoWrap.style.display="block";
 };
 
-/* TURTLE NUDGE */
+/* TURTLE */
 setInterval(()=>{
   const rect=yesBtn.getBoundingClientRect();
   turtle.style.left=rect.left+"px";
@@ -288,12 +245,13 @@ function startSlideshow(){
   const slides=document.querySelectorAll(".slide");
   const total=slides.length;
   slides[currentSlide].classList.add("active");
+
   const interval=setInterval(()=>{
     slides[currentSlide].classList.remove("active");
     currentSlide++;
     if(currentSlide >= total){
       clearInterval(interval);
-      // show special message
+      // hide slideshow and show special message
       slideshowPage.style.display="none";
       specialMsg.style.display="block";
       return;
