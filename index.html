@@ -11,18 +11,22 @@ body{
   font-family:'Segoe UI', Tahoma, sans-serif;
   background:linear-gradient(135deg,#ff9a9e,#fad0c4);
   overflow-x:hidden;
+  transition: background 1s;
 }
 
 /* PAGES */
 .page{
   display:none;          
   min-height:100vh;
+  opacity:0;
+  transition: opacity 1s;
 }
 .page.active{
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
+  opacity:1;
 }
 
 /* PAGE 1 CARD */
@@ -177,7 +181,7 @@ button{
 <div class="page active" id="page1">
   <div class="card">
     <h1>Hey K-Lajade 💖</h1>
-    <p>I have something really special to ask you…</p>
+    <p id="homeMsg">I love you princess, can't wait to spend this special day with you ❤️</p>
 
     <div class="photos">
       <img src="photo1.jpg">
@@ -210,13 +214,11 @@ button{
   <img class="slide" src="memory3.jpg">
   <img class="slide" src="memory4.jpg">
   <img class="slide" src="memory5.jpg">
-  <img class="slide" src="memory6.jpg"> <!-- extra slot -->
-  <img class="slide" src="memory7.jpg"> <!-- extra slot -->
+  <img class="slide" src="memory6.jpg">
+  <img class="slide" src="memory7.jpg">
 
   <div id="finalMsg">I love you ❤️</div>
 </div>
-
-<audio id="bgMusic" src="CarelessWhisper.mp3" preload="auto"></audio>
 
 <script>
 const yesBtn=document.getElementById("yesBtn");
@@ -227,7 +229,6 @@ const turtle=document.getElementById("turtle");
 const musicBtn=document.getElementById("musicBtn");
 const player=document.getElementById("player");
 const videoWrap=document.getElementById("videoWrap");
-const bgMusic=document.getElementById("bgMusic");
 const finalMsg=document.getElementById("finalMsg");
 
 /* NO BUTTON DODGE */
@@ -252,13 +253,12 @@ function confettiBlast(){
   }
 }
 
-/* YES → SHOW SLIDESHOW + MUSIC */
+/* YES → SHOW SLIDESHOW */
 yesBtn.onclick=()=>{
   confettiBlast();
   setTimeout(()=>{
     page1.classList.remove("active");
     slideshowPage.style.display="flex";
-    bgMusic.play(); // autoplay Careless Whisper
     startSlideshow();
   },800);
 };
@@ -286,7 +286,13 @@ function startSlideshow(){
     currentSlide++;
     if(currentSlide >= total){
       clearInterval(interval);
-      finalMsg.style.display="block"; // show "I love you" message
+      finalMsg.style.display="block"; // show "I love you"
+      setTimeout(()=>{
+        // Fade back to home page
+        slideshowPage.style.display="none";
+        finalMsg.style.display="none";
+        page1.classList.add("active");
+      },4000); // 4s on the final message
       return;
     }
     slides[currentSlide].classList.add("active");
